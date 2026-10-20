@@ -7,6 +7,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       ca-certificates build-essential git pkg-config libre2-dev nodejs npm \
     && rm -rf /var/lib/apt/lists/*
 
+# The git witness tests make commits, so git needs an identity.
+RUN git config --system user.name "Tracekit tests" \
+    && git config --system user.email tests@tracekit.invalid
+
 # scanner contract: the checkout lives inside the image, at /src
 COPY . /src
 WORKDIR /src
